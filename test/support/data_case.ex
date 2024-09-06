@@ -24,6 +24,7 @@ defmodule Pento.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Pento.DataCase
+      import Pento.{AccountsFixtures, CatalogFixtures, SurveyFixtures}
     end
   end
 
