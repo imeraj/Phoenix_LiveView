@@ -14,4 +14,10 @@ defmodule PentoWeb.SurveyLive do
 
     assign(socket, :demographic, Survey.get_demographic_by_user(current_user))
   end
+
+  def handle_params(params, _url, socket) do
+    %{assigns: %{current_user: current_user}} = socket
+
+    {:noreply, assign(socket, :demographic, Survey.get_demographic_by_user(current_user))}
+  end
 end
