@@ -1,23 +1,47 @@
 defmodule PentoWeb.SurveyLive do
   use PentoWeb, :live_view
 
+  alias Pento.Catalog
   alias Pento.Survey
   alias PentoWeb.SurveyLive.Component
   alias PentoWeb.DemographicLive
+  alias PentoWeb.RatingLive
 
-  def mount(_params, _session, socket) do
-    {:ok, assign_demographic(socket)}
+  def handle_params(params, _url, socket) do
+    {:noreply,
+     socket
+     |> assign_demographic()
+     |> assign_products()}
   end
 
   defp assign_demographic(socket) do
     %{assigns: %{current_user: current_user}} = socket
-
     assign(socket, :demographic, Survey.get_demographic_by_user(current_user))
   end
 
-  def handle_params(params, _url, socket) do
+  defp assign_products(socket) do
     %{assigns: %{current_user: current_user}} = socket
+    assign(socket, :products, list_products(current_user))
+  end
 
-    {:noreply, assign(socket, :demographic, Survey.get_demographic_by_user(current_user))}
+  defp list_products(user) do
+    Catalog.list_products_with_user_rating(user)
+  end
+
+  def handle_info({:created_rating, updated_product, product_index}, socket) do
+    {:noreply, handle_rating_created(socket, updated_product, product_index)}
+  end
+
+  def handle_rating_created(
+        %{assigns: %{products: products}} = socket,
+        updated_product,
+        product_index
+      ) do
+    socket
+    |> put_flash(:info, "Rating submitted successfully")
+    |> assign(
+      :products,
+      List.replace_at(products, product_index, updated_product)
+    )
   end
 end

@@ -16,7 +16,7 @@ defmodule PentoWeb.DemographicLive.Show do
       </h2>
       <CoreComponents.table rows={[@demographic]} id={to_string(@demographic.id)}>
         <:col :let={demographic} label="Gender">
-          <%= demographic.gender %>
+          <%= String.capitalize(demographic.gender) %>
         </:col>
         <:col :let={demographic} label="Year of Birth">
           <%= demographic.year_of_birth %>
