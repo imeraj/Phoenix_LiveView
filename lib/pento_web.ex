@@ -58,6 +58,12 @@ defmodule PentoWeb do
     end
   end
 
+  def chart_live do
+    quote do
+      unquote(chat_helpers())
+    end
+  end
+
   def live_component do
     quote do
       use Phoenix.LiveComponent
@@ -92,6 +98,12 @@ defmodule PentoWeb do
 
       # Routes generation with the ~p sigil
       unquote(verified_routes())
+    end
+  end
+
+  defp chat_helpers do
+    quote do
+      import PentoWeb.BarChart
     end
   end
 
