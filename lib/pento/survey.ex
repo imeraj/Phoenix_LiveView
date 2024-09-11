@@ -201,4 +201,11 @@ defmodule Pento.Survey do
   def get_demographic_by_user(user) do
     Demographic.Query.for_user(user) |> Repo.one()
   end
+
+  def user_rating_for_product(product, user) do
+    rating_query =
+      from r in Rating, where: r.user_id == ^user.id, where: r.product_id == ^product.id
+
+    Repo.preload(product, ratings: rating_query)
+  end
 end
