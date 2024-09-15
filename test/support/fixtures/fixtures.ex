@@ -8,6 +8,7 @@ defmodule Pento.Fixtures do
     sku: 42,
     unit_price: 120.5
   }
+
   @create_user_attrs %{
     email: "test@test.com",
     password: "passwordpassword"
@@ -28,7 +29,7 @@ defmodule Pento.Fixtures do
     user
   end
 
-  def demographic_fixture(user, attrs \\ @create_demographic_attrs) do
+  def demographic_fixture(user, attrs) do
     attrs =
       attrs
       |> Map.merge(%{user_id: user.id})
@@ -63,8 +64,8 @@ defmodule Pento.Fixtures do
     %{rating: rating}
   end
 
-  def create_demographic(user) do
-    demographic = demographic_fixture(user)
+  def create_demographic(user, attrs \\ @create_demographic_attrs) do
+    demographic = demographic_fixture(user, attrs)
     %{demographic: demographic}
   end
 
