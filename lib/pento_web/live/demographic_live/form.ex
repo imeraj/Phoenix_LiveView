@@ -38,7 +38,7 @@ defmodule PentoWeb.DemographicLive.Form do
     demographic_params = params_with_user_id(demographic_params, socket)
 
     case Survey.create_demographic(demographic_params) do
-      {:ok, demographic} ->
+      {:ok, _demographic} ->
         {:noreply,
          socket
          |> put_flash(:info, "Demographic created successfully")

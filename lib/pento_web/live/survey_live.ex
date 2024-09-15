@@ -8,7 +8,7 @@ defmodule PentoWeb.SurveyLive do
 
   @survey_results_topic "survey_results"
 
-  def handle_params(params, _url, socket) do
+  def handle_params(_params, _url, socket) do
     {:noreply,
      socket
      |> assign_demographic()

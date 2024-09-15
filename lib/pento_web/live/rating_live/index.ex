@@ -2,7 +2,6 @@ defmodule PentoWeb.RatingLive.Index do
   @moduledoc false
   use Phoenix.Component
   import Phoenix.HTML
-  alias PentoWeb.SurveyLive
   alias PentoWeb.RatingLive
 
   attr :products, :list, required: true
